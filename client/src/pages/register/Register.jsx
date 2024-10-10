@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./register.scss";
 
 const Register = () => {
-  const [inputs, setInput] = useState({
+  const [inputs, setInputs] = useState({
     username: "",
     email: "",
     password: "",
@@ -13,13 +13,13 @@ const Register = () => {
   const [err, setErr] = useState(null)
 
   const handleChange = e => {
-    setInput(prev => ({...prev, [e.target.name]: e.target.value}))
+    setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
-
+  console.log(inputs)
   const handleClick = async e => {
     e.preventDefault()
 
-      // Validasi di sisi klien
+    // Validasi di sisi klien
     if (!inputs.username || !inputs.email || !inputs.password || !inputs.name) {
       setErr("All columns must be filled in.");
       return;
@@ -27,12 +27,12 @@ const Register = () => {
 
     try {
       await axios.post("http://localhost:8800/api/auth/register", inputs)
-    }catch(err){
+    } catch (err) {
       setErr(err.response.data)
     }
   }
 
-  console.log(err)
+  // console.log(err)
 
   return (
     <div className="register">
@@ -44,7 +44,7 @@ const Register = () => {
           </p>
           <span>Do you have an account?</span>
           <Link to="/login">
-          <button>Login</button>
+            <button>Login</button>
           </Link>
         </div>
         <div className="right">
